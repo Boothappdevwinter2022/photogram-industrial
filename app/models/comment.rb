@@ -21,5 +21,5 @@
 #
 class Comment < ApplicationRecord
   belongs_to :author, class_name: "User", counter_cache: true # for this counter_cache to work, we have to have a column in the Users table for comments_count
-  belongs_to :photo
+  belongs_to :photo, counter_cache: true
 end
