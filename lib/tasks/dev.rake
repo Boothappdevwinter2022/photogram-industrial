@@ -1,11 +1,16 @@
 task sample_data: :environment do
   p "Creating sample data"
 
+  # clear out the tables before generating sample data:
   if Rails.env.development?
+    Like.destroy_all
+    Comment.destroy_all
+    Photo.destroy_all
     FollowRequest.destroy_all
     User.destroy_all
   end
 
+  #create random users in the users table
   12.times do
     name = Faker::Name.first_name.downcase
     u = User.create(
@@ -20,6 +25,7 @@ task sample_data: :environment do
 
   p "#{User.count} users have been created"
 
+  # create random following requests
   users = User.all
 
   users.each do |first_user|
@@ -42,4 +48,28 @@ task sample_data: :environment do
 
   p "#{FollowRequest.count} follow requests have been created"
 
+  users.each do |user|
+    rand(15).times do
+      photo = user.own_photos.create(
+        caption: Faker::Quote.jack_handey,
+        image: "https://robohash.org/#{rand(9999)}"
+      )
+
+      user.followers.each do |follower|
+        if rand < 0.5
+          photo.fans << follower # shovel operator here creates a record in the joined table (likes table)
+        end
+    
+        if rand < 0.25
+          photo.comments.create(
+            body: Faker::Quote.jack_handey,
+            author: follower
+          )
+        end
+      end
+    end
+  end
+  p "#{Photo.count} photos have been created"
+  p "#{Like.count} likes have been created"
+  p "#{Comment.count} comments have been created"
 end
