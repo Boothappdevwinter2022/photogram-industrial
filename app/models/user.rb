@@ -30,7 +30,7 @@ class User < ApplicationRecord
 
   has_many :comments, foreign_key: :author_id # we don't need to specify class_name here because it's standard ("Comments")
 
-  has_many :sent_follow_requests, foreign_key: :sender_id, class_name: "FollowRequest"
+  has_many :sent_follow_requests, foreign_key: :sender_id, class_name: "FollowRequest", dependent: :destroy
 
   has_many :accepted_sent_follow_requests, -> { accepted }, foreign_key: :sender_id, class_name: "FollowRequest"
 
