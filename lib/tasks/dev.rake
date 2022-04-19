@@ -10,12 +10,16 @@ task sample_data: :environment do
     User.destroy_all
   end
 
+  usernames = Array.new { Faker::Name.first_name.downcase }
+  
+  usernames << "alice"
+  usernames << "bob"
+
   #create random users in the users table
-  12.times do
-    name = Faker::Name.first_name.downcase
-    u = User.create(
-      email: "#{name}@example.com",
-      username: name,
+  usernames.each do |username|
+    User.create(
+      email: "#{username}@example.com",
+      username: username,
       password: "password",
       private: [true, false].sample
     )
