@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   resources :follow_requests
   resources :likes
   resources :photos
-  resources :users, only: :show # this is equivalent to `get "users/:id" => "users#show", as: :user`
+  #resources :users, only: :show # this is equivalent to `get "users/:id" => "users#show", as: :user` but this will create /users/:username
 
+  get "/:username" => "users#show"
 
 end
