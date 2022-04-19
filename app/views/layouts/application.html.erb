@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>VanillaRails</title>
+    <title>Photogram</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -15,7 +15,15 @@
     <%= render "shared/navbar" %>
 
     <div class="container">
+      <% if notice.present? %>
+        <%= render "shared/flash", message: notice, css_class: "success"%>
+      <% end %>
 
-    <%= yield %>
+      <% if alert.present? %>
+        <%= render "shared/flash", message: alert, css_class: "danger"%>
+      <% end %>
+
+      <%= yield %>
+    </div>
   </body>
 </html>
