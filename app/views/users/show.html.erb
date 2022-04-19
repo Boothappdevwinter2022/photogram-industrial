@@ -3,9 +3,31 @@
   <%= @user.username %>
 </h1>
 
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <ul class="nav nav-pills nav-justified">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Posts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Liked photos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Feed</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Followers</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Following</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
 <h2>Own photos</h2>
 <% current_user.own_photos.each do |photo| %>
-  <div class="row-mb-4">
+  <div class="row">
     <div class="col-md-6 offser-md-3">
       <div class="card">
         <%= image_tag photo.image, class: "card-img-top", alt: "..." %>
